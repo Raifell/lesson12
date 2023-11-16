@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+
+    <h1>Product List</h1>
+    <a href="{% url 'product_create' %}">Create Product</a>
+    <div style="width: 300px; margin: auto; margin-top: 50px;">
+        <p>
+        {% for category in category_list %}
+            <a href="{% url 'product_list' %}?choice={{ category.name }}">{{ category }}</a>
+        {% endfor %}
+            <a href="{% url 'product_list' %}">Show all</a>
+        </p>
+        <p>
+        {% for shop in shop_list %}
+            <a href="{% url 'product_list' %}?shop={{ shop.title }}">{{ shop.title }}</a>
+        {% endfor %}
+            <a href="{% url 'product_list' %}">All</a>
+        </p>
+
+        {% for product in product_list %}
+            <p>
+                {{ product.name }} -
+                <a href="{% url 'product_detail' product.slug %}">Detail</a>
+                <a href="{% url 'product_update' product.slug %}">Update</a>
+                <a href="{% url 'product_delete' product.slug %}">Delete</a>
+            </p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

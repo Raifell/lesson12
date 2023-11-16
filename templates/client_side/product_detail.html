@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product detail</title>
+</head>
+<body>
+
+    <h1>Product {{ product.name }} detail:</h1>
+    <p>{{ product.name }}</p>
+    <p>{{ product.price }}</p>
+    <p>{{ product.quantity }}</p>
+    <p>{{ product.category }}</p>
+    <p>{{ product.created_at }}</p>
+
+    <p>{% for shop in product.shop.all %}{{ shop.title }} {% endfor %} </p>
+
+    <div style="border: 2px solid black; width: 300px; margin: auto; margin-top: 50px;">
+        <form action="{% url 'comment_create' product.slug %}" method="POST">
+            {% csrf_token %}
+            <label for="username_id">User</label>
+            <input type="text" id="username_id" name="username">
+            <br>
+            <label for="body_id">Text</label>
+            <textarea id="body_id" name="body"></textarea>
+            <br>
+            <input type="submit" value="Comment">
+        </form>
+        <br>
+
+        {% for comment in comment_list %}
+            <div style="border: 2px solid red; margin: 10px;">
+                <p>{{ comment.username }} - {{ comment.created_at }}</p>
+                <p>{{ comment.body }}</p>
+            </div>
+        {% endfor %}
+
+
+    </div>
+
+</body>
+</html>

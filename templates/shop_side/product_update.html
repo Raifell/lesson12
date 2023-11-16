@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product update</title>
+</head>
+<body>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input value="{{ product.name }}" type="text" name="name">
+        <input value="{{ product.price }}" type="number" name="price">
+        <input value="{{ product.quantity }}" type="number" name="quantity">
+        <select name="category">
+            {% for category in category_list %}
+
+                    <option
+                            {% if category == product.category %}
+                                selected
+                            {% endif %}
+                            value="{{ category.pk }}">{{ category }}
+                    </option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Update">
+    </form>
+
+</body>
+</html>
